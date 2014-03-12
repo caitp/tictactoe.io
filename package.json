@@ -1,0 +1,55 @@
+{
+  "name": "tictactoe.io",
+  "version": "0.1.0",
+  "description": "A web-based Tic-Tac-Toe game, built on AngularJS, Polymer, and socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/caitp/tictactoe.io.git"
+  },
+  "keywords": [
+    "angular",
+    "socket.io",
+    "polymer",
+    "realtime",
+    "online",
+    "game"
+  ],
+  "author": "Caitlin Potter <caitpotter88@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/caitp/tictactoe.io/issues"
+  },
+  "homepage": "https://github.com/caitp/tictactoe.io",
+  "dependencies": {
+    "tictactoe.js": "git://github.com/caitp/tictactoe.js#master",
+    "gulp": "~3.5.5",
+    "gulp-concat": "~2.1.7",
+    "gulp-uglify": "~0.2.1",
+    "socket.io": "~0.9.16",
+    "gulp-util": "~2.2.14",
+    "gulp-bower": "0.0.3",
+    "express": "~3.5.0",
+    "es6-shim": "^0.10.0",
+    "node-di": "0.0.3",
+    "di": "^2.0.0-pre-3"
+  },
+  "devDependencies": {
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.2",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.5",
+    "karma-coffee-preprocessor": "~0.1.3",
+    "requirejs": "~2.1.11",
+    "karma-requirejs": "~0.2.1",
+    "karma-phantomjs-launcher": "~0.1.2",
+    "karma": "~0.10.9",
+    "karma-coveralls": "~0.1.2",
+    "gulp-jasmine": "^0.2.0",
+    "jasmine-only": "^0.1.0"
+  }
+}

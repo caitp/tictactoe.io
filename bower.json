@@ -1,0 +1,28 @@
+{
+  "name": "tictactoe.io",
+  "version": "0.1.0",
+  "authors": [
+    "Caitlin Potter <caitpotter88@gmail.com>"
+  ],
+  "description": "A web-based Tic-Tac-Toe game, built on AngularJS, Polymer, and socket.io",
+  "keywords": [
+    "angular",
+    "socket.io",
+    "polymer",
+    "realtime",
+    "online",
+    "game"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer-platform": "~0.2.1",
+    "fontawesome": "~4.0.3"
+  }
+}
