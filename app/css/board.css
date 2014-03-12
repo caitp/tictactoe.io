@@ -28,6 +28,8 @@ header > h1 {
   line-height: 50px;
   font-weight: bold;
   text-align: center;
+  -webkit-transition: color 300ms linear;  
+  transition: color 300ms linear;
 }
 
 header > h1:hover {
