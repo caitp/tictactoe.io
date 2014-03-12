@@ -166,5 +166,35 @@ describe('Game', function() {
       expect(callback.callCount).toBe(0);
       expect(callback2.callCount).toBe(1);
     });
+
+
+    describe('isOver() method', function() {
+      it('should return false when game ending conditions are not met', function() {
+        expect(game.isOver()).toBe(false);        
+      });
+
+      it('should return true if a player has won', function() {
+        p1.emit('game:move', {x:0, y:0});
+        p2.emit('game:move', {x:0, y:1});
+        p1.emit('game:move', {x:1, y:0});
+        p2.emit('game:move', {x:1, y:1});
+        p1.emit('game:move', {x:2, y:0});
+        expect(game.isOver()).toBe(true);
+      });
+
+
+      it('should return true in case of a draw', function() {
+        p1.emit('game:move', {x:0, y:0});
+        p2.emit('game:move', {x:1, y:1});
+        p1.emit('game:move', {x:0, y:1});
+        p2.emit('game:move', {x:0, y:2});
+        p1.emit('game:move', {x:2, y:0});
+        p2.emit('game:move', {x:1, y:0});
+        p1.emit('game:move', {x:1, y:2});
+        p2.emit('game:move', {x:2, y:2});
+        p1.emit('game:move', {x:2, y:1});
+        expect(game.isOver()).toBe(true);
+      });
+    });
   });
 });

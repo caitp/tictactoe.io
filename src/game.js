@@ -10,7 +10,9 @@ function Game(player1, player2) {
   this.players = [player1, player2];
   this.current = 0;
   var that = this;
+  this.lastTurn = 1;
   this.on("move", function() {
+    that.lastTurn = that.current;
     that.current = Number(!that.current);
   });
 }
@@ -55,6 +57,11 @@ Game.prototype.toString = function() {
   return lines.join(linesep);
 }
 
+Game.prototype.isOver = function() {
+  return this._moves >= this.state.length ||
+    this.detectVictory(this.players[0]) || this.detectVictory(this.players[1]);
+}
+
 Game.setup = function setup(p1, p2, injector) {
   if (!injector) injector = require('./injector');
   var game = new Game(p1, p2);
@@ -83,6 +90,11 @@ Game.setup = function setup(p1, p2, injector) {
       };
       p1.socket.emit('game:moved', clean);
       p2.socket.emit('game:moved', clean);
+
+      if (!game.isOver()) {
+        (game.lastTurn ? p1 : p2).emit('game:beginturn');
+      }
+
       logger.log("%s moves to %d, %d:", clean.player.marker, item.x, item.y);
       logger.log("%s\n\n", game.toString());
     })
