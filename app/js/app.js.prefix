@@ -1,0 +1,9 @@
+/**
+ * tictactoe.io
+ *
+ * Copyright 2014 Caitlin Potter & contributors
+ *
+ * Released under the MIT license
+ * https://github.com/caitp/tictactoe.io#license
+ */
+;(function(globals) { 'use strict';

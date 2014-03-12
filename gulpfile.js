@@ -17,7 +17,11 @@ gulp.task('build:js', function() {
   }))*/.pipe(gulp.dest('./www/js/'));
   
   src =  gulp.src([
-    'app/js/app.js'
+    'app/js/app.js.prefix',
+    'app/js/app.js',
+    'app/js/helpers.js',
+    'app/js/*/*.js',
+    'app/js/app.js.suffix'
   ]);
 
   if (process.argv.indexOf('--debug') >= 0) {
