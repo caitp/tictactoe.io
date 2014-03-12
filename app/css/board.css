@@ -19,6 +19,7 @@ header {
   padding: 0;
   border-bottom: 4px solid #555;
   width: 100%;
+  z-index: 1000;
 }
 
 header > h1 {
