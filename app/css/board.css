@@ -1,3 +1,7 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 ttt-board {
   display: block;
   margin: 0 auto;
@@ -5,4 +9,33 @@ ttt-board {
   min-height: 450px;
   max-width: 450px;
   max-height: 450px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  height: 50px;
+  background-color: black;
+  padding: 0;
+  border-bottom: 4px solid #555;
+  width: 100%;
+}
+
+header > h1 {
+  color: #aaa;
+  margin: 0;
+  line-height: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+
+header > h1:hover {
+  color: #fff;
+  cursor: default;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 60px;
 }
