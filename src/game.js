@@ -92,7 +92,7 @@ Game.setup = function setup(p1, p2, injector) {
       p2.socket.emit('game:moved', clean);
 
       if (!game.isOver()) {
-        (game.lastTurn ? p1 : p2).emit('game:beginturn');
+        (game.current === 0 ? p2 : p1).emit('game:beginturn');
       }
 
       logger.log("%s moves to %d, %d:", clean.player.marker, item.x, item.y);
@@ -125,6 +125,7 @@ Game.setup = function setup(p1, p2, injector) {
     })
   p1.emit('game:start', cleanPlayer(p2));
   p2.emit('game:start', cleanPlayer(p1));
+  p1.emit('game:beginturn');
   // console.log("matchup found: " + p1.name + " vs. " + p2.name);
   return game;
 }

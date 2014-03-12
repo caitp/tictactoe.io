@@ -46,6 +46,9 @@ describe('Game', function() {
 
   describe('match', function() {
     var s1, s2, p1, p2, game;
+    function setupGame() {
+      game = Game.setup(p1, p2, injector);
+    }
     beforeEach(function() {
       Player.reset();
       s1 = new Socket();
@@ -55,11 +58,11 @@ describe('Game', function() {
       p1.name = "X";
       p2.name = "O";
       p1.ready = p2.ready = true;
-      game = Game.setup(p1, p2, injector);
     });
 
 
     it('should forbid same player from moving twice in a row', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:badturn');
       p1.on('game:badturn', callback);
       p1.emit('game:move', {
@@ -76,6 +79,7 @@ describe('Game', function() {
 
 
     it('should forbid player from moving on other players turn', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:badturn');
       p2.on('game:badturn', callback);
       p2.emit('game:move', {
@@ -88,6 +92,7 @@ describe('Game', function() {
 
 
     it('should forbid player from occupying occupied tile', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:badmove');
       p1.on('game:badmove', callback);
       p2.on('game:badmove', callback);
@@ -106,6 +111,7 @@ describe('Game', function() {
 
 
     it('should notify opponent of victory due to forfeit', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:forfeit');
       p2.on('game:forfeit', callback);
       p1.disconnect();
@@ -114,6 +120,7 @@ describe('Game', function() {
 
 
     it('should notify opponent of defeat due to forfeit', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:forfeit');
       p1.on('game:forfeit', callback);
       p1.disconnect();
@@ -122,6 +129,7 @@ describe('Game', function() {
 
 
     it('should notify both players of draw', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:draw');
       p1.on('game:draw', callback);
       p2.on('game:draw', callback);
@@ -139,6 +147,7 @@ describe('Game', function() {
 
 
     it('should notify player of victory', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:victory');
       var callback2 = jasmine.createSpy('game:victory2');
       p1.on('game:victory', callback);
@@ -154,6 +163,7 @@ describe('Game', function() {
 
 
     it('should notify player of victory', function() {
+      setupGame();
       var callback = jasmine.createSpy('game:defeat');
       var callback2 = jasmine.createSpy('game:defeat2');
       p1.on('game:defeat', callback);
@@ -168,12 +178,31 @@ describe('Game', function() {
     });
 
 
+    it('should emit `game:beginturn` event on first players turn', function() {
+      var callback = jasmine.createSpy('game:beginturn');
+      p1.on('game:beginturn', callback);
+      setupGame();
+      expect(callback.callCount).toBe(1);
+    });
+
+
+    it('should emit `game:beginturn` event on a players turn', function() {
+      setupGame();
+      var callback = jasmine.createSpy('game:beginturn');
+      p2.on('game:beginturn', callback);
+      p1.emit('game:move', {x:0, y:0});
+      expect(callback.callCount).toBe(1);
+    });
+
+
     describe('isOver() method', function() {
       it('should return false when game ending conditions are not met', function() {
+        setupGame();
         expect(game.isOver()).toBe(false);        
       });
 
       it('should return true if a player has won', function() {
+        setupGame();
         p1.emit('game:move', {x:0, y:0});
         p2.emit('game:move', {x:0, y:1});
         p1.emit('game:move', {x:1, y:0});
@@ -184,6 +213,7 @@ describe('Game', function() {
 
 
       it('should return true in case of a draw', function() {
+        setupGame();
         p1.emit('game:move', {x:0, y:0});
         p2.emit('game:move', {x:1, y:1});
         p1.emit('game:move', {x:0, y:1});
