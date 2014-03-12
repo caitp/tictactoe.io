@@ -9,7 +9,7 @@
 <div class="ttt-profile-row">
   <label></label>
   <span>
-    <button ng-click="$profile.cancel()">Cancel</button>
+    <button ng-if="$game.ready" ng-click="$profile.cancel()">Cancel</button>
     <button ng-click="$profile.update()">Save</button>
   </span>
 </div>
