@@ -1,6 +1,41 @@
-<label for="$profile.name">Name:</label>
-<input type="text" id="$profile.name" ng-model="$profile.name"><br />
-<label for="$profile.profile">About:</label>
-<textarea id="$profile.profile" ng-model="$profile.profile"></textarea>
-<button ng-click="$profile.cancel()">Cancel</button>
-<button ng-click="$profile.update()">Save</button>
+<div class="ttt-profile-row">
+  <label for="$profile.name">Name:</label>
+  <input type="text" id="$profile.name" ng-model="$profile.name">
+</div>
+<div class="ttt-profile-row">
+  <label for="$profile.profile">About:</label>
+  <textarea id="$profile.profile" ng-model="$profile.profile"></textarea>
+</div>
+<div class="ttt-profile-row">
+  <label></label>
+  <span>
+    <button ng-click="$profile.cancel()">Cancel</button>
+    <button ng-click="$profile.update()">Save</button>
+  </span>
+</div>
+
+<style>
+.ttt-profile-row {
+  display: table-row;
+  min-width: 450px;
+  max-width: 450px;
+}
+
+.ttt-profile-row > label {
+  display: table-cell;
+  width: 80px;
+  text-align: right;
+  vertical-align: top;
+  padding-right: .5em;
+}
+
+.ttt-profile-row > input, .ttt-profile-row > textarea, .ttt-profile-row > span {
+  display: table-cell;
+  min-width: 350px;
+  max-width: 350px;
+}
+.ttt-profile-row > textarea {
+  min-height: 200px;
+  max-height: 200px;
+}
+</style>
