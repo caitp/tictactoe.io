@@ -2,9 +2,16 @@ var Player = require('../../src/player');
 var Game = require('../../src/game');
 var Socket = require('./mock_socket');
 var cleanPlayer = require('../../src/helpers').cleanPlayer;
+var Injector = require('di').Injector;
 require('./helpers');
 
 describe('Matchmaker', function() {
+  var injector;
+  beforeEach(function() {
+    injector = new Injector([
+      require('./quiet_logger')
+    ]);
+  });
   var clear_matchmaker_timeout;
   function waitClearMatchmaker(time) {
     clear_matchmaker_timeout = setTimeout(function() {
@@ -18,8 +25,8 @@ describe('Matchmaker', function() {
   it ('should setup a match after two connections are waiting', function() {
     var sock1 = new Socket(),
         sock2 = new Socket(),
-        p1 = Player.connected(sock1),
-        p2 = Player.connected(sock2),
+        p1 = Player.connected(sock1, injector),
+        p2 = Player.connected(sock2, injector),
         callback = jasmine.createSpy('game:start');
     p1.on('game:start', callback);
     p2.on('game:start', callback);
