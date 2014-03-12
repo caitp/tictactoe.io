@@ -1,6 +1,10 @@
 function tttGameCtrl(scope, element, socket) {
   var that = this;
   var TTT_TILE_REGEXP = /^ttt-tile$/i;
+  var opponent;
+  function opponentName() {
+    return opponent ? opponent.name : "...";
+  }
   this.playing = false;
   this.board = new ttt.Board();
 
@@ -38,7 +42,8 @@ function tttGameCtrl(scope, element, socket) {
     });
     Platform.performMicrotaskCheckpoint();
   });
-  socket.on("game:start", function() {
+  socket.on("game:start", function(adversary) {
+    opponent = adversary;
     that.board.reset();
     that.playing = true;
     Platform.performMicrotaskCheckpoint();
@@ -47,21 +52,21 @@ function tttGameCtrl(scope, element, socket) {
     console.log("game:victory", arguments);
     that.playing = false;
     that.endMessage = "VICTORY";
-    that.endSubMessage = "Defeated ";
+    that.endSubMessage = "Defeated " + opponentName();
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:defeat", function() {
     console.log("game:defeat", arguments);
     that.playing = false;
     that.endMessage = "DEFEAT";
-    that.endSubMessage = "Defeated by ";
+    that.endSubMessage = "Defeated by " + opponentName();
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:forfeit", function(status) {
     console.log("game:forfeit", arguments);
     that.playing = false;
     that.endMessage = status === "victory" ? "VICTORY" : "DEFEAT";
-    that.endSubMessage = (status === "victory" ? "You" : "") + " forfeit the game";
+    that.endSubMessage = (status === "victory" ? "You" : opponentName()) + " forfeit the game";
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:draw", function() {
