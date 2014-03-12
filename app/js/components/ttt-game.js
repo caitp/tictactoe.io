@@ -44,19 +44,31 @@ function tttGameCtrl(scope, element, socket) {
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:victory", function() {
+    console.log("game:victory", arguments);
     that.playing = false;
+    that.endMessage = "VICTORY";
+    that.endSubMessage = "Defeated ";
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:defeat", function() {
+    console.log("game:defeat", arguments);
     that.playing = false;
+    that.endMessage = "DEFEAT";
+    that.endSubMessage = "Defeated by ";
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:forfeit", function(status) {
+    console.log("game:forfeit", arguments);
     that.playing = false;
+    that.endMessage = status === "victory" ? "VICTORY" : "DEFEAT";
+    that.endSubMessage = (status === "victory" ? "You" : "") + " forfeit the game";
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:draw", function() {
+    console.log("game:draw", arguments);
     that.playing = false;
+    that.endMessage = "DRAW GAME";
+    that.endSubMessage = "They both lose...";
     Platform.performMicrotaskCheckpoint();
   });
 }

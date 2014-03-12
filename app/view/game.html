@@ -231,4 +231,27 @@ ttt-game-chat {
   max-height: 0;
   max-width: 0;
 }
+
+ttt-game-end-dialog {
+  z-index: -10;
+  display: block;
+  position: relative;
+  bottom: 450px;
+  vertical-align: middle;
+  text-align: center;
+  min-width: 450px;
+  max-width: 450px;
+  min-height: 450px;
+  max-height: 450px;
+  opacity: 0;
+  background-color: #888;
+  -webkit-transition: opacity 500ms linear;
+  transition: opacity 500ms linear;
+}
+
+ttt-game-end-dialog[visible] {
+  z-index: 100;
+  opacity: .8;
+}
+
 </style>
