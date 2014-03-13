@@ -1,12 +1,12 @@
 <div class="ttt-chat-messages">
-  <p ng-repeat="message in $game.messages" ng-class="message.type">
-    <a href ng-click="showProfile(message.marker)">{{message.from}}</a>: {{message.text}}
+  <p ng-repeat="msg in $game.messages" ng-class="msg.type">
+    <a href ng-click="showProfile(msg.marker)">{{msg.name}}</a>: {{msg.message}}
   </p>
 </div>
-<div class="ttt-chat-input">
+<form class="ttt-chat-input" ng-submit="$chat.sendMessage()">
   <input type="text">
-  <button ng-click="$chat.sendMessage()">Send</button>
-</div>
+  <button type="submit">Send</button>
+</form>
 
 <style>
 ttt-game-chat {
@@ -42,7 +42,12 @@ ttt-game-chat > .ttt-chat-messages {
   transition: all 400ms ease-out;
   border: 1px solid #ddd;
   border-radius: 8px 8px 0 0;
+  overflow-y: auto;
 }
+ttt-game-chat > .ttt-chat-messages > p {
+  margin: 0;
+}
+
 ttt-game-chat:hover > .ttt-chat-messages {
   opacity: 1;
   min-width: 290px;

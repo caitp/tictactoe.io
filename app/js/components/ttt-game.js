@@ -8,6 +8,7 @@ function tttGameCtrl(scope, element, socket) {
   this.playing = false;
   that.waiting = false;
   this.board = new ttt.Board();
+  this.messages = [];
 
   this.enable = function() {
     
@@ -42,6 +43,14 @@ function tttGameCtrl(scope, element, socket) {
     });
   }
 
+  socket.on("game:chat:msg", function(data) {
+    that.messages.push(data);
+
+    // Unlike most other parts of the application, chat is using $scope change detection,
+    // and depends on a digest here.
+    scope.$digest();
+    if (that.$chat) that.$chat.newMessage();
+  });
   socket.on("game:beginturn", function() {
     that.isturn = true;
     Platform.performMicrotaskCheckpoint();
@@ -69,6 +78,8 @@ function tttGameCtrl(scope, element, socket) {
     that.board.reset();
     that.playing = true;
     that.waiting = false;
+    that.messages = [];
+    scope.$apply();
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:victory", function() {

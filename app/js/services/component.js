@@ -1,6 +1,6 @@
 app.factory("$component", ['$http', '$templateCache', '$compile',
 function($http, $templateCache, $compile) {
-  return function component(scope, element, template, shadow, ignore) {
+  return function component(scope, element, template, shadow, ignore, fn) {
     if (arguments.length < 4) shadow = true;
     var isnode = !!(element instanceof Node);
     var node = isnode ? element : element[0];
@@ -25,6 +25,9 @@ function($http, $templateCache, $compile) {
             $compile(node.shadowRoot)(scope);
           } else {
             $compile(host, undefined, undefined, ignore)(scope);
+          }
+          if (typeof fn === "function") {
+            fn(host);
           }
         });
     }
