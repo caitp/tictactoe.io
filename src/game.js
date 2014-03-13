@@ -79,6 +79,29 @@ Game.setup = function setup(p1, p2, injector) {
         game.move(player, data.x, data.y);
       }
     });
+    player.on('game:chat:send', function(data) {
+      // Message type should always be a string...
+      if (typeof data !== "string" || !data.length) {
+        // TODO: error
+      } else if (player.sent) {
+        // TODO: error --- sending too fast
+      } else {
+        var message = {
+          name: player.name,
+          type: "chat",
+          marker: game.markerForPlayer(player),
+          message: data
+        };
+        p1.emit("game:chat:msg", message);
+        p2.emit("game:chat:msg", message);
+
+        // Prevent spam
+        player.sent = true;
+        setTimeout(function() {
+          player.sent = false;
+        }, 500);
+      }
+    });
   });
   game
     .on('move', function(event, item) {

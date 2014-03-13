@@ -250,5 +250,46 @@ describe('Game', function() {
         });
       });
     });
+
+
+    describe("chat", function() {
+      beforeEach(setupGame);
+
+
+      it("should send `game:chat:msg` event to both players on valid `game:chat:send`", function() {
+        var cb1 = jasmine.createSpy("game:chat:msg p1"),
+            cb2 = jasmine.createSpy("game:chat:msg p2");
+        p1.on("game:chat:msg", cb1);
+        p2.on("game:chat:msg", cb2);
+
+        p1.emit("game:chat:send", "hey");
+        expect(cb1.callCount).toBe(1);
+        expect(cb2.callCount).toBe(1);
+
+        p2.emit("game:chat:send", "whatsup?");
+        expect(cb1.callCount).toBe(2);
+        expect(cb2.callCount).toBe(2);
+      });
+
+
+      it("should not allow messages to be spammed", function() {
+        var callback = jasmine.createSpy("game:chat:msg");
+        p2.on("game:chat:msg", callback);
+
+        for (var i=0; i<5; ++i) p1.emit("game:chat:send", "YO");
+
+        expect(callback.callCount).toBe(1);
+      });
+
+
+      it("should not send empty messages", function() {
+        var callback = jasmine.createSpy("game:chat:msg");
+        p2.on("game:chat:msg", callback);
+
+        p1.emit("game:chat:send", "");
+
+        expect(callback.callCount).toBe(0);
+      });
+    });
   });
 });
