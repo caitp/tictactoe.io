@@ -5,7 +5,11 @@ function tttBoardCtrl(scope, element, socket) {
   socket.on("profile:ready", function() {
     that.state = "game";
     scope.$apply();
-    socket.emit("game:waitfor");
+    if (scope.$game) {
+      scope.$game.playAgain();
+    } else {
+      socket.emit("game:waitfor");
+    }
   });
   socket.on("profile:updated", function(data) {
     console.log("Profile updated:", JSON.stringify(data, null, 2));

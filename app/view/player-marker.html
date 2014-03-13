@@ -4,6 +4,7 @@
 <style>
 ttt-player-marker {
   position: absolute;
+  display: none;
   bottom: .5em;
   left: .5em;
   opacity: 0;
@@ -11,11 +12,12 @@ ttt-player-marker {
   border-radius: 8px;
   background-color: #fff;
   padding: 20px;
-  -webkit-transition: opacity 1s linear;
-  transition: opacity 1s linear;
+  -webkit-transition: all 1s linear;
+  transition: all 1s linear;
 }
 
 ttt-player-marker[visible] {
+  display: block;
   opacity: 1.0;
 }
 

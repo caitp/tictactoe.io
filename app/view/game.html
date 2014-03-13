@@ -13,6 +13,7 @@
   <ttt-tile x="1" y="2"></ttt-tile>
   <ttt-tile x="2" y="2"></ttt-tile>
 </div>
+<ttt-game-waiting></ttt-game-waiting>
 <ttt-game-start-dialog></ttt-game-start-dialog>
 <ttt-game-end-dialog></ttt-game-end-dialog>
 <ttt-player-marker></ttt-player-marker>
@@ -235,7 +236,7 @@ ttt-game-chat {
 
 ttt-game-end-dialog {
   z-index: -10;
-  display: block;
+  display: none;
   position: relative;
   bottom: 450px;
   vertical-align: middle;
@@ -246,12 +247,13 @@ ttt-game-end-dialog {
   max-height: 450px;
   opacity: 0;
   background-color: #888;
-  -webkit-transition: opacity 500ms linear;
-  transition: opacity 500ms linear;
+  -webkit-transition: all 500ms linear;
+  transition: all 500ms linear;
 }
 
 ttt-game-end-dialog[visible] {
   z-index: 100;
+  display: block;
   opacity: .8;
 }
 

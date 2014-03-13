@@ -6,10 +6,20 @@ function tttGameCtrl(scope, element, socket) {
     return opponent ? opponent.name : "...";
   }
   this.playing = false;
+  that.waiting = false;
   this.board = new ttt.Board();
 
   this.enable = function() {
     
+  }
+
+  this.playAgain = function() {
+    if (!that.playing && !that.waiting) {
+      socket.emit("game:waitfor");
+      that.waiting = true;
+      that.endMessage = that.endSubMessage = undefined;
+      Platform.performMicrotaskCheckpoint();
+    }
   }
 
   this.ready = function(node) {
@@ -36,6 +46,10 @@ function tttGameCtrl(scope, element, socket) {
     that.isturn = true;
     Platform.performMicrotaskCheckpoint();
   });
+  socket.on("game:waiting", function() {
+    that.waiting = true;
+    Platform.performMicrotaskCheckpoint();
+  });
   socket.on("game:moved", function(move) {
     // Need to surgically add move data...
     console.log(move);
@@ -54,6 +68,7 @@ function tttGameCtrl(scope, element, socket) {
     that.marker = data.marker;
     that.board.reset();
     that.playing = true;
+    that.waiting = false;
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:victory", function() {

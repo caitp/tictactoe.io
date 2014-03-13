@@ -1,0 +1,43 @@
+<h1>Waiting for opponent...</h1>
+
+<style>
+ttt-game-waiting {
+  position: relative;
+  display: none;
+  z-index: -10;
+  opacity: 0;
+  bottom: 450px;
+  min-width: 450px;
+  max-width: 450px;
+  min-height: 450px;
+  max-height: 450px;
+  vertical-align: middle;
+  text-align: center;
+  -webkit-transition: all 500ms linear;
+  transition: all 500ms linear;
+}
+ttt-game-waiting[visible] {
+  z-index: 100;
+  display: block;
+  opacity: .8;
+  background-color: #888;
+}
+ttt-game-waiting > h1 {
+  min-width: 450px;
+  max-width: 450px;
+  min-height: 450px;
+  max-height: 450px;
+  line-height: 450px;
+  vertical-align: middle;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 40px;
+  margin: 0;
+  padding: 0;
+  -webkit-margin-before: 0;
+  margin-before: 0;
+  -webkit-margin-after: 0;
+  margin-after: 0;
+}
+</style>
