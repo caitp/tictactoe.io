@@ -1,7 +1,7 @@
 tictactoe.io
 ============
 
-Real-time multiplayer tic-tac-toe built on AngularJS, Polymer and Socket.io, presented as part of a talk at jQuereyTO 2014!
+Real-time multiplayer tic-tac-toe built on AngularJS, Polymer and Socket.io, presented as part of a talk at jQueryTO 2014!
 
 This is a very experimental application, whose goal is to show some interesting things, and illustrate certain points
 mentioned in my presentation. This isn't a production application, however anyone who is interested is absolutely free
