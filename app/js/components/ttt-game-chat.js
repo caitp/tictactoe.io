@@ -14,17 +14,8 @@ app.directive("tttGameChat", ["$component", function($component) {
     controller: "tttGameChatCtrl",
     controllerAs: "$gameChat",
     link: function(scope, element, attrs, ctrl) {
-      var node = $component(scope, element, "view/game-chat.html");
-      var shadow = node[0].shadowRoot;
-      angular.element(shadow).on("mouseover mouseenter", function(event) {
-        if (event.target !== shadow) {
-          event.preventDefault();
-          if (!ctrl.enabled) {
-            scope.$apply(function() {
-              ctrl.enable();
-            });
-          }
-        }
+      $component(scope, element, "view/game-chat.html", false, "tttGameChat");
+      element.on("mouseover mouseenter", function(event) {
       });
     }
   };

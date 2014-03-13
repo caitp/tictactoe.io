@@ -14,10 +14,9 @@
   <ttt-tile x="2" y="2"></ttt-tile>
 </div>
 <ttt-game-waiting></ttt-game-waiting>
-<ttt-game-start-dialog></ttt-game-start-dialog>
 <ttt-game-end-dialog></ttt-game-end-dialog>
 <ttt-player-marker></ttt-player-marker>
-<!--<ttt-game-chat></ttt-game-chat>-->
+<ttt-game-chat></ttt-game-chat>
 
 <style>
 .ttt-tile-row {
@@ -226,12 +225,6 @@ ttt-tile[_anim-direction="down"].flipped > *:last-child {
   -ms-transform: perspective(800px) rotateX(0deg) translate3d(0px, 0px, 1px);
   -o-transform: perspective(800px) rotateX(0deg) translate3d(0px, 0px, 1px);
   transform: perspective(800px) rotateX(0deg) translate3d(0px, 0px, 1px);
-}
-
-ttt-game-chat {
-  border: none;
-  max-height: 0;
-  max-width: 0;
 }
 
 ttt-game-end-dialog {

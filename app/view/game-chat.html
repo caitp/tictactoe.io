@@ -1,12 +1,137 @@
-<section class="ttt-game-chat-window">
+<div class="ttt-chat-messages">
+  <p ng-repeat="message in $game.messages" ng-class="message.type">
+    <a href ng-click="showProfile(message.marker)">{{message.from}}</a>: {{message.text}}
+  </p>
+</div>
+<div class="ttt-chat-input">
   <input type="text">
-</section>
+  <button ng-click="$chat.sendMessage()">Send</button>
+</div>
 
 <style>
-.ttt-game-chat-window {
+ttt-game-chat {
   position: absolute;
-  bottom: 0;
-  width: 600px;
-  height: 300px;
+  display: block;
+  top: 100px;
+  left: .5em;
+  max-height: 300px;
+  min-height: 300px;
+  min-width: 50px;
+  max-width: 50px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background-color: #fff;
+  -webkit-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  z-index: 1000;
+}
+
+ttt-game-chat:hover {
+  min-width: 300px;
+  max-width: 300px;
+}
+
+ttt-game-chat > .ttt-chat-messages {
+  opacity: 0;
+  margin: 5px 5px 0 5px;
+  max-height: 255px;
+  min-height: 255px;
+  min-width: 40px;
+  max-width: 40px;
+  -webkit-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  border: 1px solid #ddd;
+  border-radius: 8px 8px 0 0;
+}
+ttt-game-chat:hover > .ttt-chat-messages {
+  opacity: 1;
+  min-width: 290px;
+  max-width: 290px;
+  -webkit-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+}
+
+ttt-game-chat > .ttt-chat-input {
+  opacity: 0;
+  margin: 0 5px 5px 5px;
+  max-height: 30px;
+  min-height: 30px;
+  min-width: 40px;
+  max-width: 40px;
+  -webkit-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  border-radius: 0 0 8px 8px;
+}
+
+ttt-game-chat:hover > .ttt-chat-input {
+  opacity: 1;
+  min-width: 290px;
+  max-width: 290px;
+  -webkit-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+}
+
+ttt-game-chat > .ttt-chat-input > * {
+  display: block;
+  float: left;
+  opacity: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-transition: all 400ms ease-out;
+  transition: all 400ms ease-out;
+  vertical-align: middle;
+  height: 31px;
+  outline: none;
+  font-size: 10pt;
+  line-height: 24px;
+  margin: 0;
+}
+
+ttt-game-chat:hover > .ttt-chat-input > * {
+  opacity: 1;
+  outline: none!important;
+}
+
+ttt-game-chat > .ttt-chat-input > input {
+  margin: 0 0 5px 5px;
+  padding: 0 0 0 5px;
+  max-height: 31px;
+  min-height: 31px;
+  min-width: 40px;
+  max-width: 40px;
+  border: none;
+  border-radius: 0;
+  border-right: 1px solid #ddd;
+}
+
+ttt-game-chat:hover > .ttt-chat-input > input {
+  min-width: 230px;
+  max-width: 230px;
+}
+
+ttt-game-chat > .ttt-chat-input > button {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  margin: 0;
+  padding: 0;
+  max-height: 31px;
+  min-height: 31px;
+  min-width: 0px;
+  max-width: 0px;
+  border: 0;
+  border-radius: 0 0 8px 0;
+  background: #eee;
+}
+
+ttt-game-chat:hover > .ttt-chat-input > button {
+  min-width: 49px;
+  max-width: 49px;
+}
+
+ttt-game-chat:hover > .ttt-chat-input > button:hover {
+  background: #ddd;
+  cursor: pointer;
 }
 </style>
