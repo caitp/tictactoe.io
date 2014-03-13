@@ -1,0 +1,45 @@
+<span>You are: </span>
+<ttt-turn-message></ttt-turn-message>
+
+<style>
+ttt-player-marker {
+  position: absolute;
+  bottom: .5em;
+  left: .5em;
+  opacity: 0;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 20px;
+  -webkit-transition: opacity 1s linear;
+  transition: opacity 1s linear;
+}
+
+ttt-player-marker[visible] {
+  opacity: 1.0;
+}
+
+ttt-player-marker > span:after {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 150px;
+  width: 150px;
+  font-size: 128px;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: -40px;
+}
+
+ttt-player-marker.o > span:after {
+  content: "\f10c";
+  font-size: 100px;
+  margin-left: -20px;
+}
+ttt-player-marker.x > span:after {
+  content: "\f00d";
+}
+</style>

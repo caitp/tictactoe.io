@@ -225,6 +225,30 @@ describe('Game', function() {
         p1.emit('game:move', {x:2, y:1});
         expect(game.isOver()).toBe(true);
       });
+
+
+      it('should emit `game:start` event when game starts with opponent and own marker', function() {
+        var cb1 = jasmine.createSpy('game:start p1'), cb2 = jasmine.createSpy('game:start p2');
+        p1.on('game:start', cb1);
+        p2.on('game:start', cb2);
+        setupGame();
+        expect(cb1.callCount).toBe(1);
+        expect(cb1.callCount).toBe(cb2.callCount);
+        expect(cb1.argsForCall[0][0]).toEqual({
+          opponent: {
+            name: "O",
+            profile: undefined
+          },
+          marker: "X"
+        });
+        expect(cb2.argsForCall[0][0]).toEqual({
+          opponent: {
+            name: "X",
+            profile: undefined
+          },
+          marker: "O"
+        });
+      });
     });
   });
 });

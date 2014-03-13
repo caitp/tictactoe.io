@@ -47,8 +47,14 @@ describe('Matchmaker', function() {
       expect(p2.game).not.toBeUndefined();
       expect(p1.game).toBe(p2.game);
       expect(callback.callCount).toBe(2);
-      expect(callback).toHaveBeenCalledWith(cleanPlayer(p1));
-      expect(callback).toHaveBeenCalledWith(cleanPlayer(p2));
+      expect(callback).toHaveBeenCalledWith({
+        opponent: cleanPlayer(p1),
+        marker: "O"
+      });
+      expect(callback).toHaveBeenCalledWith({
+        opponent: cleanPlayer(p2),
+        marker: "X"
+      });
       clearMatchmaker();
     });
   });  

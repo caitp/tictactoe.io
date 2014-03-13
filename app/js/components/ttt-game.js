@@ -32,9 +32,16 @@ function tttGameCtrl(scope, element, socket) {
     });
   }
 
+  socket.on("game:beginturn", function() {
+    that.isturn = true;
+    Platform.performMicrotaskCheckpoint();
+  });
   socket.on("game:moved", function(move) {
     // Need to surgically add move data...
     console.log(move);
+    if (move.player.marker === that.marker) {
+      that.isturn = false;
+    }
     that.board.move(move.player.marker, move.x, move.y, {
       player: move.player,
       marker: move.player.marker,
@@ -42,35 +49,32 @@ function tttGameCtrl(scope, element, socket) {
     });
     Platform.performMicrotaskCheckpoint();
   });
-  socket.on("game:start", function(adversary) {
-    opponent = adversary;
+  socket.on("game:start", function(data) {
+    opponent = data.opponent;
+    that.marker = data.marker;
     that.board.reset();
     that.playing = true;
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:victory", function() {
-    console.log("game:victory", arguments);
     that.playing = false;
     that.endMessage = "VICTORY";
     that.endSubMessage = "Defeated " + opponentName();
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:defeat", function() {
-    console.log("game:defeat", arguments);
     that.playing = false;
     that.endMessage = "DEFEAT";
     that.endSubMessage = "Defeated by " + opponentName();
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:forfeit", function(status) {
-    console.log("game:forfeit", arguments);
     that.playing = false;
     that.endMessage = status === "victory" ? "VICTORY" : "DEFEAT";
     that.endSubMessage = (status === "victory" ? "You" : opponentName()) + " forfeit the game";
     Platform.performMicrotaskCheckpoint();
   });
   socket.on("game:draw", function() {
-    console.log("game:draw", arguments);
     that.playing = false;
     that.endMessage = "DRAW GAME";
     that.endSubMessage = "They both lose...";

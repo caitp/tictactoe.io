@@ -123,8 +123,14 @@ Game.setup = function setup(p1, p2, injector) {
       p2.emit(isp1 ? 'game:defeat' : 'game:victory');
       cleanup(p1, p2, game);
     })
-  p1.emit('game:start', cleanPlayer(p2));
-  p2.emit('game:start', cleanPlayer(p1));
+  p1.emit('game:start', {
+    opponent: cleanPlayer(p2), 
+    marker: "X"
+  });
+  p2.emit('game:start', {
+    opponent: cleanPlayer(p1), 
+    marker: "O"
+  });
   p1.emit('game:beginturn');
   // console.log("matchup found: " + p1.name + " vs. " + p2.name);
   return game;
